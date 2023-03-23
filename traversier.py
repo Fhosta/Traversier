@@ -3,6 +3,7 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import * 
 from PyQt5.QtWidgets import * 
 from vues.interface import Ui_MainWindow
+from Classe.personne import *
 
 
 class Traversier(QMainWindow):
@@ -16,8 +17,10 @@ class Traversier(QMainWindow):
         # Autres initialisations de l'application
         self.setWindowTitle("Traversier")
         self.show()
-        self.listClient = QStandardItemModel(self)
+        self.listeClient = self.ui.listeClient
         self.ui.btnClient.clicked.connect(self.obtenirResultatClient)
+
+
 
     def obtenirResultatClient(self):
         nom = self.ui.nomClient.text()
@@ -27,11 +30,12 @@ class Traversier(QMainWindow):
         codePostal = self.ui.codePostalClient.text()
         telephone = self.ui.telephoneClient.text()
         courriel = self.ui.courrielClient.text()
-        resultat = f"Nom: {nom}, Adresse: {adresse}, Ville: {ville}, Province: {province}, Code postal: {codePostal}, Téléphone: {telephone}, Courriel: {courriel}"
-        item = QStandardItem(resultat)
-        print(resultat)
-        self.listClient.appendRow(item)
-        # print(nom)
+       
+
+        unePersonne = Personne(nom, adresse, ville, province, codePostal, telephone, courriel)
+
+        
+        self.listeClient.addItem(unePersonne.nom)
 
 if __name__ == '__main__':
     app = QApplication([])
