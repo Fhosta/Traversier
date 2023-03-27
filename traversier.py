@@ -21,7 +21,6 @@ class Traversier(QMainWindow):
         self.show()
         self.listeClient = self.ui.listeClient
         self.ui.btnClient.clicked.connect(self.ajouterClient)
-        self.chargerClient()
         
         if os.path.isfile("clients.xml") and os.path.getsize("clients.xml") > 0:
             tree = ET.parse("clients.xml")
@@ -29,7 +28,9 @@ class Traversier(QMainWindow):
         else:
             root = ET.Element("clients")
             tree = ET.ElementTree(root)
+            tree.write("clients.xml", encoding="utf-8", xml_declaration=True)
 
+        self.chargerClient()
 
     def ajouterClient(self):
         nom = self.ui.nomClient.text()
@@ -61,11 +62,18 @@ class Traversier(QMainWindow):
         dateCreationElement = ET.SubElement(client, "dateCreation")
         dateCreationElement.text = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-        self.root.append(client)
-        self.tree.write("clients.xml", encoding="utf-8", xml_declaration=True)
+        if os.path.isfile("clients.xml") and os.path.getsize("clients.xml") > 0:
+            tree = ET.parse("clients.xml")
+            root = tree.getroot()
+        else:
+            root = ET.Element("clients")
+            tree = ET.ElementTree(root)
+
+        root.append(client)
+        tree.write("clients.xml", encoding="utf-8", xml_declaration=True)
 
         self.listeClient.addItem(unePersonne.nom)
-        
+
         # Effacer les champs du formulaire
         self.ui.nomClient.setText('')
         self.ui.adresseClient.setText('')
@@ -88,7 +96,7 @@ class Traversier(QMainWindow):
         for client in root.findall('client'):
             print(client)
             nom = client.find('nom').text
-            print("Le client :"+client)
+            # print("Le client :"client)
             self.listeClient.addItem(nom)
             
 if __name__ == '__main__':
