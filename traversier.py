@@ -1,8 +1,9 @@
+import os.path
 import datetime
 import xml.etree.ElementTree as ET
-from PyQt5.QtCore import * 
-from PyQt5.QtGui import * 
-from PyQt5.QtWidgets import * 
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
+from PyQt5.QtWidgets import *
 from vues.interface import Ui_MainWindow
 from Classe.personne import *
 
@@ -20,7 +21,14 @@ class Traversier(QMainWindow):
         self.show()
         self.listeClient = self.ui.listeClient
         self.ui.btnClient.clicked.connect(self.ajouterClient)
-
+        self.chargerClient()
+        
+        if os.path.isfile("clients.xml") and os.path.getsize("clients.xml") > 0:
+            tree = ET.parse("clients.xml")
+            root = tree.getroot()
+        else:
+            root = ET.Element("clients")
+            tree = ET.ElementTree(root)
 
 
     def ajouterClient(self):
@@ -34,8 +42,7 @@ class Traversier(QMainWindow):
 
         unePersonne = Personne(nom, adresse, ville, province, codePostal, telephone, courriel)
 
-        
-        # Enregistrement du client dans le un dossier xml 
+        # Enregistrement du client dans un dossier xml
         client = ET.Element("client")
         nomElement = ET.SubElement(client, "nom")
         nomElement.text = nom
@@ -54,21 +61,36 @@ class Traversier(QMainWindow):
         dateCreationElement = ET.SubElement(client, "dateCreation")
         dateCreationElement.text = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-        tree = ET.ElementTree(client)
-        tree.write("clients.xml", encoding="utf-8", xml_declaration=True)
+        self.root.append(client)
+        self.tree.write("clients.xml", encoding="utf-8", xml_declaration=True)
 
         self.listeClient.addItem(unePersonne.nom)
+        
+        # Effacer les champs du formulaire
+        self.ui.nomClient.setText('')
+        self.ui.adresseClient.setText('')
+        self.ui.villeClient.setText('')
+        self.ui.provienceClient.setText('')
+        self.ui.codePostalClient.setText('')
+        self.ui.telephoneClient.setText('')
+        self.ui.courrielClient.setText('')
 
     def chargerClient(self):
-        root = ET.tree.getroot()
-        clients = root.findall('./client')
-        for client in clients:
-            self.model.ajouter(
-                client(client.find('nom').text, client.find('adresse').text, client.find('ville').text,
-                        client.find('province').text, client.find('codePostal').text, client.find('telephone').text,
-                        client.find('courriel').text))
-        self.model.layoutChanged.emit()
-        
+        print('coucu')
+        # Effacer la liste actuelle
+        self.listeClient.clear()
+    
+        # Charger les clients existants depuis le fichier XML
+        tree = ET.parse("clients.xml")
+        print(tree)
+        root = tree.getroot()
+        print(root)  
+        for client in root.findall('client'):
+            print(client)
+            nom = client.find('nom').text
+            print("Le client :"+client)
+            self.listeClient.addItem(nom)
+            
 if __name__ == '__main__':
     app = QApplication([])
     window = Traversier()
