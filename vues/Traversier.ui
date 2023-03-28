@@ -33,7 +33,7 @@
      </sizepolicy>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -308,7 +308,7 @@
       <property name="geometry">
        <rect>
         <x>1440</x>
-        <y>210</y>
+        <y>150</y>
         <width>411</width>
         <height>761</height>
        </rect>
@@ -338,7 +338,7 @@
       <property name="geometry">
        <rect>
         <x>1440</x>
-        <y>180</y>
+        <y>130</y>
         <width>241</width>
         <height>16</height>
        </rect>
@@ -357,14 +357,117 @@
      <widget class="QPushButton" name="btnClient">
       <property name="geometry">
        <rect>
-        <x>630</x>
-        <y>650</y>
+        <x>620</x>
+        <y>840</y>
         <width>281</width>
         <height>61</height>
        </rect>
       </property>
       <property name="text">
        <string>Soumettre</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="numClient">
+      <property name="geometry">
+       <rect>
+        <x>580</x>
+        <y>640</y>
+        <width>361</width>
+        <height>41</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_38">
+      <property name="geometry">
+       <rect>
+        <x>410</x>
+        <y>650</y>
+        <width>161</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>9</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Numéro d'identification</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="sexeClient">
+      <property name="geometry">
+       <rect>
+        <x>580</x>
+        <y>700</y>
+        <width>361</width>
+        <height>41</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QDateEdit" name="dateEdit">
+      <property name="geometry">
+       <rect>
+        <x>580</x>
+        <y>760</y>
+        <width>361</width>
+        <height>41</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_39">
+      <property name="geometry">
+       <rect>
+        <x>440</x>
+        <y>710</y>
+        <width>131</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>9</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Sexe</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_40">
+      <property name="geometry">
+       <rect>
+        <x>410</x>
+        <y>770</y>
+        <width>161</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>9</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Date de naissance</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btnClient_2">
+      <property name="geometry">
+       <rect>
+        <x>1520</x>
+        <y>920</y>
+        <width>281</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Supprimer</string>
       </property>
      </widget>
     </widget>

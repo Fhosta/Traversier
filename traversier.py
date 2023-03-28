@@ -5,7 +5,8 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from vues.interface import Ui_MainWindow
-from Classe.personne import *
+from Classe.personne import Personne
+from Classe.client import Client
 
 
 class Traversier(QMainWindow):
@@ -40,8 +41,12 @@ class Traversier(QMainWindow):
         codePostal = self.ui.codePostalClient.text()
         telephone = self.ui.telephoneClient.text()
         courriel = self.ui.courrielClient.text()
+        numeroIdentification = self.ui.numClient.text()
+        sexe = self.ui.sexeClient.text()
+
 
         unePersonne = Personne(nom, adresse, ville, province, codePostal, telephone, courriel)
+        unClient = Client(numeroIdentification,sexe)
 
         # Enregistrement du client dans un dossier xml
         client = ET.Element("client")
@@ -59,6 +64,8 @@ class Traversier(QMainWindow):
         telephoneElement.text = telephone
         courrielElement = ET.SubElement(client, "courriel")
         courrielElement.text = courriel
+        sexeElement =  ET.SubElement(client,"sexe")
+        sexeElement.text = sexe
         dateCreationElement = ET.SubElement(client, "dateCreation")
         dateCreationElement.text = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
@@ -72,7 +79,7 @@ class Traversier(QMainWindow):
         root.append(client)
         tree.write("clients.xml", encoding="utf-8", xml_declaration=True)
 
-        self.listeClient.addItem(unePersonne.nom)
+        self.listeClient.addItem(unePersonne.nom +"-"+ unClient.sexe)
 
         # Effacer les champs du formulaire
         self.ui.nomClient.setText('')
@@ -84,20 +91,19 @@ class Traversier(QMainWindow):
         self.ui.courrielClient.setText('')
 
     def chargerClient(self):
-        print('coucu')
+
         # Effacer la liste actuelle
         self.listeClient.clear()
     
         # Charger les clients existants depuis le fichier XML
         tree = ET.parse("clients.xml")
-        print(tree)
-        root = tree.getroot()
-        print(root)  
+        root = tree.getroot()  
         for client in root.findall('client'):
-            print(client)
             nom = client.find('nom').text
-            # print("Le client :"client)
-            self.listeClient.addItem(nom)
+            ville = client.find('ville').text
+            sexe = client.find('sexe').text
+            leClient = nom + " - " + ville + "-"+ sexe
+            self.listeClient.addItem(leClient)
             
 if __name__ == '__main__':
     app = QApplication([])
