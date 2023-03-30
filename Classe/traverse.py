@@ -1,13 +1,9 @@
 
 class Traverse:
-    def __init__(self, noTraversier, dateHeure, villeDepart, employeInscription, listeVehicule, listeClient):
-        self.noTraversier = noTraversier
+    def __init__(self,  dateHeure, villeDepart, employe, client, voiture):
         self.dateHeure = dateHeure
         self.villeDepart = villeDepart
-        self.employeInscription = employeInscription
-        self.listeVehicule = listeVehicule
-        self.listeClient = listeClient
+        self.employe = employe
+        self.client = client
+        self.voiture = voiture
 
-# employe = Employe()
-# vehicules = [Vehicule(), Vehicule(), Vehicule()]
-# clients = [Client(), Client()]
