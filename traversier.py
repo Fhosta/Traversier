@@ -1,3 +1,8 @@
+# Auteur : Florian Hostachy
+# Date : 3/29/2023
+# Fonction : Permet une gestion complète d'un traversier 
+
+
 import os.path
 import datetime
 import xml.etree.ElementTree as ET
@@ -61,6 +66,10 @@ class Traversier(QMainWindow):
         self.chargerVehiculeTraverse()
         self.chargerTraverse()
 
+
+###################################################################################################################################
+                                           # Clients
+###################################################################################################################################
 
     def ajouterClient(self):
         nom = self.ui.nomClient.text()
